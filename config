@@ -1,0 +1,28 @@
+# Borg Backup Configuration
+# This file is sourced by the backup script
+
+# NFS Server Configuration
+NFS_SERVER="172.16.0.99"
+NFS_PATH="/mnt/nfs/borg-backup"
+MOUNT_POINT="/mnt/borg-nfs"
+
+# Backup Configuration
+BACKUP_PATHS="/home /etc /var/log /root /opt /usr/local"
+EXCLUDE_PATTERNS="*/.cache/* */tmp/* */.tmp/* */lost+found/* */__pycache__/* */node_modules/* */.git/* */target/* */build/* */dist/*"
+
+# Borg Repository Settings
+BORG_PASSPHRASE="changeme_secure_passphrase"
+
+# Retention Policy (for cleanup of old repositories)
+PRUNE_KEEP_DAILY=7      # Keep daily backups for 7 days
+PRUNE_KEEP_WEEKLY=4     # Keep weekly backups for 4 weeks
+PRUNE_KEEP_MONTHLY=6    # Keep monthly backups for 6 months
+
+# Logging
+LOG_FILE="/var/log/borg-backup.log"
+
+# Additional Options
+# Uncomment and modify as needed:
+# BORG_COMPRESSION="lz4"
+# BORG_CHECKPOINT_INTERVAL="1800"
+# BORG_RELOCATED_REPO_ACCESS_IS_OK="yes"

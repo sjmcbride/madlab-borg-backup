@@ -1,0 +1,37 @@
+[Unit]
+Description=Borg Backup Service
+Documentation=https://borgbackup.readthedocs.io/
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/mnt
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+
+# Set environment
+Environment=CONFIG_FILE=/etc/borg-backup/config
+Environment=LOG_FILE=/var/log/borg-backup.log
+
+# Security settings
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/var/log /mnt /tmp
+NoNewPrivileges=yes
+
+# Resource limits
+TimeoutStartSec=0
+TimeoutStopSec=300
+
+# Execute backup script
+ExecStart=/usr/local/bin/borg-backup.sh
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=borg-backup
+
+[Install]
+WantedBy=multi-user.target
